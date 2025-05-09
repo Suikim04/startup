@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Фото жүктеу</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <style>
+    body {
+      background-color: rgb(255, 251, 233); /* Сары фон */
+      text-align: center;
+      padding-top: 80px;
+    }
+    video, canvas {
+      border: 4px dashed #fdd835;
+      border-radius: 20px;
+      max-width: 90%;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #fbc02d;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 10px;
+      margin: 5px;
+    }
+    .thumbnail {
+      width: 100px;
+      height: auto;
+      margin: 5px;
+      border: 3px solid transparent;
+      cursor: pointer;
+    }
+    .thumbnail.selected {
+      border-color: #f57f17;
+    }
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+    .canvas-container {
+      position: relative;
+      display: inline-block;
+    }
+    .frame-selector img {
+      width: 80px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Навбар -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="#">Polaroid Moment</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Басты бет</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Галерея</a></li>
+        <li class="nav-item"><a class="nav-link" href="photobooth.html">Фотобудка</a></li>
+        <li class="nav-item"><a class="nav-link" href="price.html">Бағалар</a></li>
+        <li class="nav-item active"><a class="nav-link" href="upload.html">Пікір қалдыру</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Байланыс</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h2>Камера арқылы фото түсіру</h2>
+<video id="video" autoplay></video><br>
+<button class="btn" onclick="capture()">Сурет түсіру</button>
+
+<h4>Түскен фотолар:</h4>
+<div id="thumbnails"></div>
+
+<h4>Таңдалған фото:</h4>
+<div class="canvas-container">
+  <canvas id="canvas"></canvas>
+  <img id="frameOverlay" class="frame" src="frame1.png" style="display: none;" />
+</div>
+
+<h4>Фреймдер:</h4>
+<div class="frame-selector">
+  <img src="frame1.png" alt="Frame 1" onclick="selectFrame('frame1.png')" />
+  <img src="frame2.png" alt="Frame 2" onclick="selectFrame('frame2.png')" />
+  <img src="frame3.png" alt="Frame 3" onclick="selectFrame('frame3.png')" />
+  <!-- Қосымша фреймдер -->
+</div>
+
+<!-- Фотоны жүктеп алу кнопкасы -->
+<button class="btn" onclick="downloadImage()">Жүктеп алу</button>
+
+<script>
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const thumbnailsDiv = document.getElementById('thumbnails');
+  const frameOverlay = document.getElementById('frameOverlay');
+
+  let capturedImages = [];
+  let selectedFrame = 'frame1.png'; // Бастапқы фрейм
+
+  // Камераны қосу
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => { video.srcObject = stream; })
+    .catch(err => { alert("Камера қосылмады."); });
+
+  function capture() {
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = video.videoWidth;
+    tempCanvas.height = video.videoHeight;
+    tempCtx.drawImage(video, 0, 0);
+    const dataURL = tempCanvas.toDataURL();
+
+    const img = document.createElement('img');
+    img.src = dataURL;
+    img.className = 'thumbnail';
+    img.onclick = () => selectImage(dataURL, img);
+    thumbnailsDiv.appendChild(img);
+
+    capturedImages.push(dataURL);
+  }
+
+  function selectImage(dataURL, clickedImg) {
+    // canvas-қа қою
+    const img = new Image();
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      // фреймді көрсету және canvas-пен теңестіру
+      updateFrameOverlay();
+    };
+    img.src = dataURL;
+
+    // Тек біреуін таңдау
+    document.querySelectorAll('.thumbnail').forEach(th => {
+      th.classList.remove('selected');
+    });
+    clickedImg.classList.add('selected');
+  }
+
+  function selectFrame(frameSrc) {
+    selectedFrame = frameSrc;
+    updateFrameOverlay();
+  }
+
+  function updateFrameOverlay() {
+    frameOverlay.src = selectedFrame;
+    frameOverlay.style.display = 'block';
+    const img = new Image();
+    img.onload = () => {
+      frameOverlay.width = canvas.width;
+      frameOverlay.height = canvas.height;
+    };
+    img.src = selectedFrame;
+  }
+
+  // Дайын суретті жүктеп алу
+  function downloadImage() {
+    const imageData = canvas.toDataURL('image/png'); // canvas-тан суретті алу
+    const link = document.createElement('a');  // Жүктеп алу үшін сілтеме жасау
+    link.href = imageData;  // Сурет деректерін сілтеме ретінде орнату
+    link.download = 'polaroid_moment.png';  // Файлдың атын орнату
+    link.click();  // Сілтемеге басу
+  }
+
+  function downloadImage() {
+  // Алдымен canvas-қа суретті салыңыз
+  const imageData = canvas.toDataURL('image/png'); // canvas-тан суретті алу
+  const image = new Image();
+  image.src = imageData;
+
+  image.onload = function() {
+    // Сурет пен фреймді біріктіру үшін жаңа canvas жасап, онда екеуін де саламыз
+    const finalCanvas = document.createElement('canvas');
+    const finalCtx = finalCanvas.getContext('2d');
+    
+    finalCanvas.width = image.width;
+    finalCanvas.height = image.height;
+
+    // Суретті саламыз
+    finalCtx.drawImage(image, 0, 0);
+
+    // Фреймді саламыз
+    const frameImg = new Image();
+    frameImg.src = selectedFrame; // Таңдалған фрейм
+
+    frameImg.onload = function() {
+      finalCtx.drawImage(frameImg, 0, 0, finalCanvas.width, finalCanvas.height);
+
+      // Енді фрейммен бірге суретті жүктейміз
+      const finalImageData = finalCanvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = finalImageData;
+      link.download = 'polaroid_moment_with_frame.png';
+      link.click(); // Сілтеме арқылы суретті жүктеу
+    };
+  };
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>photocard.moment</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-image: url('upload wallpaper.jpg'); /* Фон-картинка */
+      background-size: cover; /* Растягивание на весь экран */
+      background-position: center; /* Центрирование */
+      background-repeat: no-repeat; /* Отключение повторения */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Навигация -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Polaroid Moment</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Навигацияны ашу">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Басты бет</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Галерея</a></li>
+          <li class="nav-item"><a class="nav-link" href="photobooth.html">Фотобудка</a></li>
+          <li class="nav-item"><a class="nav-link" href="price.html">Бағалар</a></li>
+          <li class="nav-item active"><a class="nav-link" href="upload.html">Пікір қалдыру</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Байланыс</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Фото жүктеу формасы (ортасында) -->
+  <div class="upload-form">
+    <h2>Пікір қалдыру</h2>
+    <form id="photoUploadForm" onsubmit="sendToWhatsApp(event)">
+      <input type="text" id="name" placeholder="Аты-жөні" required>
+      <textarea id="comment" placeholder="Қосымша пікір"></textarea>
+      <button type="submit">Жіберу</button>
+    </form>
+  </div>
+
+  <script>
+    function sendToWhatsApp(event) {
+      event.preventDefault(); // Отменяем отправку формы по умолчанию
+
+      // Получаем значения из формы
+      const name = document.getElementById('name').value;
+      const photo = document.getElementById('photoUpload').files[0];
+      const comment = document.getElementById('comment').value;
+
+      // Формируем сообщение
+      const message = `Аты-жөні: ${name}\nПікір: ${comment}`;
+
+      // Создаем ссылку для отправки на WhatsApp
+      const phoneNumber = "INSERT_PHONE_NUMBER"; // Укажите номер телефона для WhatsApp
+      const url = `https://wa.me/${+77052783010}?text=${encodeURIComponent(message)}`;
+
+      // Открываем WhatsApp
+      window.open(url, "_blank");
+    }
+  </script>
+
+<script src="script.js"></script>
+</body>
+</html>

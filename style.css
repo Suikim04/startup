@@ -1,0 +1,276 @@
+body{
+    background-color: rgb(255, 251, 233);
+  }
+  
+  /* Жалпы стиль */
+  body {
+  font-family: Arial, sans-serif;
+  background: url('background.jpg') no-repeat center center/cover;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  }
+  
+  /* Навигация */
+  .navbar {
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  }
+  
+  /* Фон суреті */
+  .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1600%;
+  z-index: -1;
+  }
+  
+  .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+  
+  /* Фото жүктеу формасы (ортасында) */
+  .upload-form {
+  background: rgba(255, 255, 224, 0.95);
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  }
+  
+  /* Инпут және батырма стильдері */
+  .upload-form input, .upload-form textarea, .upload-form button {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  }
+  
+  .upload-form button {
+  background: black;
+  color: white;
+  cursor: pointer;
+  }
+  
+  /* Стили для видеоблока */
+  .video-container {
+  position: relative;
+  height: 100vh; /* Высота экрана */
+  overflow: hidden;
+  }
+  
+  .image-cWontainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  }
+  
+  #background-image {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover; /* Заполняет весь экран без искажений */
+  }
+  
+  
+  /* Стили для текста в центре видео */
+  .video-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #000000;
+  z-index: 1;
+  }
+  
+  .video-text h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  }
+  
+  .video-text p {
+  font-size: 1.25rem;
+  margin: 0;
+  }
+  
+  body {
+  background-color: #fafcd8;
+  }
+  .navbar {
+  background-color: #343a40;
+  
+  }
+  .navbar-brand, .nav-link {
+  color: #000000;
+  }
+  .navbar-nWSav .nav-link:hover {
+  color: #000000;
+  }
+  .btn-circle {
+  width: 120px;
+  height: 120px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  }
+  .btn-circle:hover {
+  transform: scale(1.1);
+  }
+  .btn-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+  
+  /* Добавляем стили для контента с изображением слева и текстом справа */
+  .content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Отступ между изображением и текстом */
+  }
+  .content img {
+  max-width: 50%;
+  border-radius: 8px;
+  }
+  .content .text {
+  max-width: 50%;
+  }
+  .content h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #333;
+  }
+  .content p {
+  font-size: 1.1rem;
+  color: #555;
+  }
+  
+  @media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .content img, .content .text {
+    max-width: 100%;
+  }
+  }
+  
+  .content {
+  display: none; /* По умолчанию контент скрыт */
+  flex-direction: row; /* Рядом изображение и текст */
+  align-items: center;
+  gap: 20px; /* Промежуток между изображением и текстом */
+  }
+  .content.active {
+  display: flex; /* Показываем только активный контент */
+  }
+  .content img {
+  max-width: 300px;
+  border-radius: 8px;
+  }
+  .content .text h3 {
+  font-size: 1.5rem;
+  color: #333;
+  }
+  .content .text p {
+  font-size: 1.1rem;
+  color: #555;
+  }
+  
+  footer {
+  background-color: #343a40;  /* Dark background */
+  color: white;  /* Text color */
+  width: 100%;  /* Ensure the footer spans the entire width */
+  position: relative;  /* Positioning for the footer */
+  bottom: 0;  /* Keep the footer at the bottom */
+  }
+  
+  footer a {
+  text-decoration: none;
+  color: white;
+  }
+  
+  footer a:hover {
+  text-decoration: underline;
+  }
+  
+  footer .text-center {
+  margin: 0; /* Remove any extra margins */
+  }
+  
+  /* Фото жүктеу формасын кеңейту, бірақ фон көрінетіндей ету */
+  .upload-form {
+  width: 70%;
+  max-width: 800px;
+  min-height: 50px; /* Минимальная высота формы */
+  padding:3 50px 40px; /* Увеличенные отступы для высоты */
+  background: rgba(255, 255, 224, 0);
+  }
+  
+  
+  
+  .upload-form input,
+  .upload-form textarea {
+  width: 100%; /* Растягивает поля на всю ширину формы */
+  height: 50pEx; /* Увеличивает высоту инпутов */
+  font-size: 18px; /* Увеличивает размер текста */
+  }
+  
+  .upload-form textarea {
+  height: 90px; /* Увеличенная высота для текстового поля */
+  }
+  
+  .upload-form input[type="file"] {
+  padding: 12px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  }
+  
+  
+  .contact-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  footer {
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    background: transparent;
+    margin-top: auto;
+  }
+  footer a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  footer a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>photocard.moment</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-image: url('upload wallpaper.jpg'); /* Фон-картинка */
+      background-size: cover; /* Растягивание на весь экран */
+      background-position: center; /* Центрирование */
+      background-repeat: no-repeat; /* Отключение повторения */
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Беттің шексіз төмен түсуіне жол бермейді */
+    }
+
+    .image-container {
+      height: 100vh; /* Экран биіктігінен аспайды */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Фонды дұрыс масштабтау */
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4); /* Қараңғылау эффектісі */
+    }
+
+    .video-text {
+      position: absolute;
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar with Bootstrap classes for positioning and style -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark bg-opacity">
+    <div class="container">
+      <a class="navbar-brand" href="#">Polaroid Moment</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Басты бет</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">Галерея</a></li>
+          <li class="nav-item"><a class="nav-link" href="photobooth.html">Фотобудка</a></li>
+          <li class="nav-item"><a class="nav-link" href="price.html">Бағалар</a></li>
+          <li class="nav-item active"><a class="nav-link" href="upload.html">Пікір қалдыру</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Байланыс</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<!-- Background Image Section -->
+<div class="image-container" id="main">
+  <img src="wall.jpg" alt="Background Image" id="background-image">
+  <div class="video-overlay"></div>
+  <div class="video-text">
+    <h1>Photocard moment</h1>
+    <p>Естеліктерді жина, заттарды емес</p>
+  </div>
+</div>
+
+ 
+<script src="script.js"></script>
+</body>
+</html>
